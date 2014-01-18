@@ -2,8 +2,12 @@
   <title>File Uploader</title>
 </head>
 
+
 <body>
-  {{> form}}
+<div style="float: right">{{loginButtons align="right"}}</div>
+{{> form}}
+{{> entries_board}}
+{{> entry_update}}
 </body>
 
 <template name="form">
@@ -15,3 +19,30 @@
     </div>
   </form>
 </template>
+
+<template name="entries_board">
+<div>
+  {{#each entries}}
+    {{> entry_board}}
+  {{/each}}
+</div>
+</template>
+
+<template name="entry_board">
+  <div>
+    <span>{{userId}}</span>
+    <span>{{filename}}</span>
+  </div>
+</template>
+
+<template name='entry_update'>
+<form>
+<input id='entry_update_shop' /><br />
+<input id='entry_update_total' /><br />
+<input id='entry_update_category' /><br />
+<input id='entry_update_memo' /><br />
+<input id='entry_update_button' type='submit' value='update' /><br />
+</form>
+</template>
+
+

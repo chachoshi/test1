@@ -96,6 +96,12 @@ if (Meteor.isServer) {
       fs.writeFileSync(filepath, buffer, options);
     }
   });
+
+  _.extend(MeteorFile.prototype, {
+    rename: function(dirPath, oldname, newname) {
+      fs.renameSync(dirPath + '/' + oldname, dirPath + '/' + newname);
+    }
+  });
 }
 /*****************************************************************************/
 
