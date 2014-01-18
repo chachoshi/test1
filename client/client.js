@@ -33,18 +33,18 @@ Template.entry_update.events({
     };
     console.log(criteria);
     var changes = {
-      shop: $('#entry_update_shop').val(),
-      total: $('#entry_update_total').val(),
-      category: $('#entry_update_category').val(),
-      memo: $('#entry_update_memo').val()
+      shop: tmpl.find('#entry_update_shop').value,
+      total: tmpl.find('#entry_update_total').value,
+      category: tmpl.find('#entry_update_category').value,
+      memo: tmpl.find('#entry_update_memo').value
     };
     var action = {
       action: 'manual update',
       updated: new Date(),
-      shop: $('#entry_update_shop').val(),
-      total: $('#entry_update_total').val(),
-      category: $('#entry_update_category').val(),
-      memo: $('#entry_update_memo').val()
+      shop: tmpl.find('#entry_update_shop').value,
+      total: tmpl.find('#entry_update_total').value,
+      category: tmpl.find('#entry_update_category').value,
+      memo: tmpl.find('#entry_update_memo').value
     };
     Meteor.call('updateEntry', criteria, changes, action, function(err, r) {
       if (err) {
@@ -55,6 +55,37 @@ Template.entry_update.events({
         console.log('call updateEntry successful.');
       }
     });
+  }
+});
+
+Template.entry_history.helpers({
+  history_items: function() {
+
+    var id = Session.get('selected_entry', this._id);
+    if (id) {
+      var h = Entries.findOne({
+        _id: id
+      }).history;
+      console.log(h);
+
+      var ret = new Array(h.length);
+      for (var i = 0; i < h.length; i++) {
+        ret[i] = new Array();
+        for (k in h[i]) {
+          console.log(k);
+          console.log(h[i][k]);
+          var n = ret[i].length;
+          ret[i][n] = {};
+          ret[i][n]['key'] = k;
+          ret[i][n]['value'] = h[i][k];
+        }
+      }
+      console.log(ret);
+
+      return ret;
+    } else {
+      return new Array();
+    }
   }
 });
 

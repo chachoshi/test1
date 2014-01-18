@@ -8,6 +8,7 @@
 {{> form}}
 {{> entries_board}}
 {{> entry_update}}
+{{> entry_history}}
 </body>
 
 <template name="form">
@@ -43,6 +44,18 @@
 <input id='entry_update_memo' /><br />
 <input id='entry_update_button' type='submit' value='update' /><br />
 </form>
+</template>
+
+<template name='entry_history'>
+  {{#each history_items}}
+  {{#each this}}
+  {{this.key}} {{this.value}}</br>
+  {{/each}}
+  {{/each}}
+</template>
+
+<template name='entry_history_item'>
+<p>{{key}} {{value}}</p>
 </template>
 
 
