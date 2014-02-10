@@ -1,0 +1,17 @@
+/* $Id$ */
+
+
+hr.separator1 {
+  height: 2px;
+  border: none;
+  border-top: 2px #ff0000 dotted; /* 境界線 */
+}
+
+hr.separator2 {
+  height: 2px;
+  border: none;
+  border-top: 2px #0000ff dashed; /* 境界線 */
+}
+
+
+

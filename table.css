@@ -1,0 +1,28 @@
+
+.ta1 {
+  width: 560px;
+  margin-top:15px;
+  margin-left:40px;
+  margin-bottom:5px;
+}
+
+.ta1.status {
+  text-align:center;
+}
+
+.ta1.num {
+  text-align:right;
+}
+
+.ta1 th,.ta1 td {
+  padding:5px 12px;
+}
+
+.ta1 th {
+  border-bottom:double 3px #666666;
+}
+
+.ta1 td {
+  border-bottom:solid 1px #666666;
+}
+
