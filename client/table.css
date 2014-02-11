@@ -26,7 +26,7 @@
   border-bottom:solid 1px #666666;
 }
 
-.ta1 td.selected {
+.ta1 td.selected,th.selected {
   background-color: #ddffee;
 }
 

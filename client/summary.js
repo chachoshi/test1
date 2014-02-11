@@ -21,23 +21,28 @@ Template.summary.events({
     console.log('click in summary table');
 
     var cell = e.target;
-    if (! ('rowname' in cell.attributes)) {
-      console.log('cell: not prepared cell');
-      return;
+
+    var r = undefined;
+    if ('rowname' in cell.attributes) {
+      // headers are excluded.
+      r = cell.attributes['rowname'].value;
+      if (!Session.equals('summary_row', r)) {
+        Session.set('summary_row', r);
+        Session.set('breakdown_start', r);
+        Session.set('breakdown_end', r);
+      }
     }
 
-    var r = cell.attributes['rowname'].value;
     var c = cell.attributes['columnname'].value;
-    console.log('cell ' + r + ' ' + c);
-    if (!Session.equals('summary_row', r)) {
-      Session.set('summary_row', r);
-      Session.set('breakdown_start', r);
-      Session.set('breakdown_end', r);
-    }
     if (!Session.equals('summary_column', c)) {
       Session.set('summay_colmun', c);
-      Session.set('breakdown_category', c);
+      if (c == 'date') {
+        Session.set('breakdown_category', undefined);
+      } else {
+        Session.set('breakdown_category', c);
+      }
     }
+    console.log('cell ' + r + ' ' + c);
 
     // put color to a selected cell
     t.findAll(".selected").forEach(function(e) {
