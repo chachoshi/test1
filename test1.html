@@ -5,7 +5,7 @@
 
 <body>
 <div style="float:right">{{loginButtons align="right"}}</div><br />
-<div style="overflow:hidden; width:2000px">
+<div style="overflow:hidden; width:3000px">
 <div style="float:left">
 {{> summary}}
 </div>
@@ -13,7 +13,7 @@
 {{> breakdown}}
 </div>
 <div style="float:left">
-BBBB
+{{> receipt}}
 </div>
 </div>
 <hr class="separator2" />
@@ -79,6 +79,30 @@ BBBB
   {{/each}}
 </template>
 
+
+<template name='receipt'>
+<input type='hidden' id='receipt_id' value="{{receipt_id}}" /><br />
+<table class="ta1" cellspacing="0">
+<tr>
+<th>date</th>
+<th>category</th>
+<th>shop</th>
+<th>total</th>
+<th>memo</th>
+</tr>
+{{#each receipt}}
+<tr>
+<td rowname={{_id}} columnname="date" >{{formatYYYYMMDD created}}</td>
+<td rowname={{_id}} columnname="category" >{{category}}</td>
+<td rowname={{_id}} columnname="shop" >{{shop}}</td>
+<td rowname={{_id}} columnname="total" >{{total}}</td>
+<td rowname={{_id}} columnname="memo" >{{memo}}</td>
+</tr>
+{{/each}}
+</table>
+</template>
+
+
 <template name='breakdown'>
 <input type='date' size='10' maxlength='10' id='breakdown_start' value={{breakdown_start}} />
 <input type='date' size='10' maxlength='10' id='breakdown_end' value={{breakdown_end}} />
@@ -93,11 +117,11 @@ BBBB
 </tr>
 {{#each breakdown}}
 <tr>
-<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{formatYYYYMMDD created}}</td>
-<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{category}}</td>
-<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{shop}}</td>
-<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{total}}</td>
-<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{memo}}</td>
+<td rowname={{_id}} columnname="date" >{{formatYYYYMMDD created}}</td>
+<td rowname={{_id}} columnname="category" >{{category}}</td>
+<td rowname={{_id}} columnname="shop" >{{shop}}</td>
+<td rowname={{_id}} columnname="total" >{{total}}</td>
+<td rowname={{_id}} columnname="memo" >{{memo}}</td>
 </tr>
 {{/each}}
 </table>

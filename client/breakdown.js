@@ -30,6 +30,31 @@ Template.breakdown.events({
     if (0 < d.length) {
       Session.set('breakdown_end', d);
     }
+  },
+  'keyup #breakdown_category': function(e, t) {
+    e.preventDefault();
+    var txt = t.find('#breakdown_category').value;
+    Session.set('breakdown_category', d);
+  },
+  'click': function(e, t) {
+    console.log('click in breakdown table');
+
+    var cell = e.target;
+    if (! ('rowname' in cell.attributes)) {
+      console.log('cell: not prepared cell');
+      return;
+    }
+
+    var r = cell.attributes['rowname'].value;
+    var c = cell.attributes['columnname'].value;
+    console.log('cell ' + r + ' ' + c);
+    if (!Session.equals('breakdown_row', r)) {
+      Session.set('breakdown_row', r);
+      Session.set('receipt_id', r);
+    }
+    if (!Session.equals('breakdown_column', c)) {
+      Session.set('breakdown_column', c);
+    }
   }
 });
 
@@ -37,7 +62,8 @@ Template.breakdown.breakdown = function() {
   console.log('breakdown.breakdown');
   var start = Session.get('breakdown_start');
   var end = Session.get('breakdown_end');
-  var c = breakdownCriteria(start, end);
+  var category = Session.get('breakdown_category');
+  var c = breakdownCriteria(start, end, category);
   var es = Entries.find(c, {
     sort: {
       created: 1
@@ -47,7 +73,7 @@ Template.breakdown.breakdown = function() {
   return es;
 }
 
-var breakdownCriteria = function(start, end) {
+var breakdownCriteria = function(start, end, category) {
   start = normalizeDateStr(start);
   end = normalizeDateStr(end);
 
