@@ -25,14 +25,18 @@ Template.summary.events({
       console.log('cell: not prepared cell');
       return;
     }
-    var r = cell.attributes['rowname'].nodeValue;
-    var c = cell.attributes['columnname'].nodeValue;
+
+    var r = cell.attributes['rowname'].value;
+    var c = cell.attributes['columnname'].value;
     console.log('cell ' + r + ' ' + c);
     if (!Session.equals('summary_row', r)) {
       Session.set('summary_row', r);
+      Session.set('breakdown_start', r);
+      Session.set('breakdown_end', r);
     }
     if (!Session.equals('summary_column', c)) {
       Session.set('summay_colmun', c);
+      Session.set('breakdown_category', c);
     }
   }
 });
@@ -52,7 +56,11 @@ Template.summary.summary = function() {
   var ss = Session.get('summary_start');
   var se = Session.get('summary_end');
   var c = summaryCriteria(ss, se);
-  var es = Entries.find(c);
+  var es = Entries.find(c, {
+    sort: {
+      created: 1
+    }
+  });
 
   var s = {};
   es.forEach(function(e) {

@@ -58,34 +58,35 @@ Template.entry_update.events({
   }
 });
 
-Template.entry_history.helpers({
-  history_items: function() {
+var currentText = '';
 
-    var id = Session.get('selected_entry', this._id);
-    if (id) {
-      var h = Entries.findOne({
-        _id: id
-      }).history;
-      console.log(h);
+Template.entry_history.history_items = function() {
+  var id = Session.get('selected_entry');
+  if (id) {
+    //    if (typeof Entries.findOne !='function') {
+    //      return new Array();
+    //    }
+    var h = Entries.findOne({
+      _id: id
+    }).history;
 
-      var ret = new Array(h.length);
-      for (var i = 0; i < h.length; i++) {
-        ret[i] = new Array();
-        for (k in h[i]) {
-          console.log(k);
-          console.log(h[i][k]);
-          var n = ret[i].length;
-          ret[i][n] = {};
-          ret[i][n]['key'] = k;
-          ret[i][n]['value'] = h[i][k];
-        }
+    //    console.log(h);
+    var ret = new Array(h.length);
+    for (var i = 0; i < h.length; i++) {
+      ret[i] = new Array();
+      for (k in h[i]) {
+        //        console.log(k);
+        //        console.log(h[i][k]);
+        var n = ret[i].length;
+        ret[i][n] = {};
+        ret[i][n]['key'] = k;
+        ret[i][n]['value'] = h[i][k];
       }
-      console.log(ret);
-
-      return ret;
-    } else {
-      return new Array();
     }
+    //    console.log(ret);
+    return ret;
+  } else {
+    return new Array();
   }
-});
+}
 

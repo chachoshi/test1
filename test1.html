@@ -4,8 +4,18 @@
 
 
 <body>
-<div style="float: right">{{loginButtons align="right"}}</div>
+<div style="float:right">{{loginButtons align="right"}}</div><br />
+<div style="overflow:hidden; width:2000px">
+<div style="float:left">
 {{> summary}}
+</div>
+<div style="float:left">
+{{> breakdown}}
+</div>
+<div style="float:left">
+BBBB
+</div>
+</div>
 <hr class="separator2" />
 {{> form}}
 <hr class="separator2" />
@@ -67,6 +77,30 @@
   {{this.key}} {{this.value}}</br>
   {{/each}}
   {{/each}}
+</template>
+
+<template name='breakdown'>
+<input type='date' size='10' maxlength='10' id='breakdown_start' value={{breakdown_start}} />
+<input type='date' size='10' maxlength='10' id='breakdown_end' value={{breakdown_end}} />
+<input type='text' size='10' maxlength='10' id='breakdown_category' value="{{breakdown_category}}" /><br />
+<table class="ta1" cellspacing="0">
+<tr>
+<th>date</th>
+<th>category</th>
+<th>shop</th>
+<th>total</th>
+<th>memo</th>
+</tr>
+{{#each breakdown}}
+<tr>
+<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{formatYYYYMMDD created}}</td>
+<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{category}}</td>
+<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{shop}}</td>
+<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{total}}</td>
+<td rowname="{{formatYYYYMMDD created}}" id="{{id}}" >{{memo}}</td>
+</tr>
+{{/each}}
+</table>
 </template>
 
 <template name='summary'>
