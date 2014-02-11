@@ -55,6 +55,12 @@ Template.breakdown.events({
     if (!Session.equals('breakdown_column', c)) {
       Session.set('breakdown_column', c);
     }
+
+    // put color to a selected cell
+    t.findAll(".selected").forEach(function(e) {
+      e.className = "";
+    });
+    cell.className = "selected";
   }
 });
 

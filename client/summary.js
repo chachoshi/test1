@@ -38,6 +38,12 @@ Template.summary.events({
       Session.set('summay_colmun', c);
       Session.set('breakdown_category', c);
     }
+
+    // put color to a selected cell
+    t.findAll(".selected").forEach(function(e) {
+      e.className = "";
+    });
+    cell.className = "selected";
   }
 });
 
