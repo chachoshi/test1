@@ -5,9 +5,14 @@
 
 <body>
 <div style="float: right">{{loginButtons align="right"}}</div>
+{{> summary}}
+<hr class="separator2" />
 {{> form}}
+<hr class="separator2" />
 {{> entries_board}}
+<hr class="separator2" />
 {{> entry_update}}
+<hr class="separator2" />
 {{> entry_history}}
 </body>
 
@@ -40,7 +45,17 @@
 <form>
 <input id='entry_update_shop' /><br />
 <input id='entry_update_total' /><br />
-<input id='entry_update_category' /><br />
+<select id='entry_update_category'>
+<option name='eating-in'>eating-in</option>
+<option name='eating-out'>eating-out</option>
+<option name='clothes'>clothes</option>
+<option name='mb'>medical and beauty</option>
+<option name='social'>social</option>
+<option name='education'>education</option>
+<option name='leisure'>leisure</option>
+<option name='tc'>transport and communication</option>
+<option name='commodity'>commodity</option>
+</select><br />
 <input id='entry_update_memo' /><br />
 <input id='entry_update_button' type='submit' value='update' /><br />
 </form>
@@ -54,8 +69,35 @@
   {{/each}}
 </template>
 
-<template name='entry_history_item'>
-<p>{{key}} {{value}}</p>
+<template name='summary'>
+<input type='date' size='10' maxlength='10' id='summary_start' value='2014-01-01' />
+<input type='date' size='10' maxlength='10' id='summary_end' value='2014-02-02' /><br />
+<table class="ta1" cellspacing="0">
+<tr><th>date</th>
+<th>eating-in</th>
+<th>eating-out</th>
+<th>clothes</th>
+<th>M/B</th>
+<th>social</th>
+<th>education</th>
+<th>leisure</th>
+<th>T/C</th>
+<th>commodity</th>
+</tr>
+{{#each summary}}
+<tr>
+<td rowname="{{date}}" columnname="date" >{{date}}</td>
+<td rowname="{{date}}" columnname="eating-in" >{{eating-in}}</td>
+<td rowname="{{date}}" columnname="eating-out" >{{eating-out}}</td>
+<td rowname="{{date}}" columnname="clothes" >{{clothes}}</td>
+<td rowname="{{date}}" columnname="mb" >{{mb}}</td>
+<td rowname="{{date}}" columnname="social" >{{social}}</td>
+<td rowname="{{date}}" columnname="education" >{{education}}</td>
+<td rowname="{{date}}" columnname="leisure" >{{leisure}}</td>
+<td rowname="{{date}}" columnname="tc" >{{tc}}</td>
+<td rowname="{{date}}" columnname="commodity" >{{commodity}}</td>
+</tr>
+{{/each}}
+</table>
 </template>
-
 
