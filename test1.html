@@ -6,13 +6,18 @@
 <body>
 <div style="float:right">{{loginButtons align="right"}}</div><br />
 <div style="overflow:hidden; width:3000px">
-<div style="float:left">
+<div style="aligh:left">
+<a align="left" href='#summary'>summary</a>|
+<a href='#breakdown'>breakdown</a>|
+<a href='#receipt'>receipt</a>
+</div><br />
+<div id='summary' style="float:left">
 {{> summary}}
 </div>
-<div style="float:left">
+<div id='breakdown' style="float:left">
 {{> breakdown}}
 </div>
-<div style="float:left">
+<div id='receipt' style="float:left">
 {{> receipt}}
 </div>
 </div>
