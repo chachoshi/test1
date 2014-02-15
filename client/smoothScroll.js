@@ -17,18 +17,23 @@ $(document).ready(function() {
   });
 });
 
-$(document).on('keydown', null, 'ctrl+s', function() {
-  console.log('shortcut ctrl+s');
+
+///// ShortCut
+
+var shortcutSummary = function() {
   $('#btn_summary').trigger('click');
-});
-
-$(document).on('keydown', null, 'ctrl+b', function() {
-  console.log('shortcut ctrl+b');
+}
+var shortcutBreakdown = function() {
   $('#btn_breakdown').trigger('click');
-});
-
-$(document).on('keydown', null, 'ctrl+r', function() {
-  console.log('shortcut ctrl+r');
+}
+var shortcutReceipt = function() {
   $('#btn_receipt').trigger('click');
-});
+}
+
+$(document).on('keydown', null, 'ctrl+s', shortcutSummary);
+$(document).on('keydown', null, 'ctrl+q', shortcutSummary);
+$(document).on('keydown', null, 'ctrl+b', shortcutBreakdown);
+$(document).on('keydown', null, 'ctrl+w', shortcutBreakdown);
+$(document).on('keydown', null, 'ctrl+r', shortcutReceipt);
+$(document).on('keydown', null, 'ctrl+e', shortcutReceipt);
 
