@@ -4,20 +4,17 @@
 
 
 <body>
-<div style="float:right">{{loginButtons align="right"}}</div><br />
 <div style="overflow:hidden; width:3000px">
-<div style="aligh:left">
-<a align="left" href='#summary'>summary</a>|
-<a href='#breakdown'>breakdown</a>|
-<a href='#receipt'>receipt</a>
-</div><br />
 <div id='summary' style="float:left">
+<div class="floating_area"></div>
 {{> summary}}
 </div>
 <div id='breakdown' style="float:left">
+<div class="floating_area"></div>
 {{> breakdown}}
 </div>
 <div id='receipt' style="float:left">
+<div class="floating_area"></div>
 {{> receipt}}
 </div>
 </div>
@@ -29,6 +26,22 @@
 {{> entry_update}}
 <hr class="separator2" />
 {{> entry_history}}
+
+
+<div class='floating_menu'>
+<div style="float:left">
+<a id='btn_summary' href='#summary' title='Go to Summary (Ctrl+S)'>
+<img src='/icons/Analytics.png' width='26' height='26'></img></a>
+<a id='btn_breakdown' href='#breakdown' title='Go to Breakdown (Ctrl+B)'>
+<img src='/icons/Monitoring.png' width='26' height='26'></img></a>
+<a id='btn_receipt' href='#receipt' title='Go to Receipt (Ctrl+R)'>
+<img src='/icons/Networking.png' width='26' height='26'></img></a>
+<img src='/icons/ResponsiveDesign.png' width='26' height='26'></img>
+</div>
+<div style="float:right" title="ログイン/ログアウト">
+{{loginButtons}}
+<div>
+</div>
 </body>
 
 <template name="form">
