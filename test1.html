@@ -5,6 +5,10 @@
 
 <body>
 <div style="overflow:hidden; width:3000px">
+<div id='monthly' style="float:left">
+<div class="floating_area"></div>
+{{> monthly}}
+</div>
 <div id='summary' style="float:left">
 <div class="floating_area"></div>
 {{> summary}}
@@ -30,13 +34,14 @@
 
 <div class='floating_menu'>
 <div style="float:left">
+<a id='btn_monthly' href='#monthly' title='Go to Monthly(Ctrl+M)'>
+<img src='/icons/ResponsiveDesign.png' width='26' height='26'></img></a>
 <a id='btn_summary' href='#summary' title='Go to Summary (Ctrl+S)'>
 <img src='/icons/Analytics.png' width='26' height='26'></img></a>
 <a id='btn_breakdown' href='#breakdown' title='Go to Breakdown (Ctrl+B)'>
 <img src='/icons/Monitoring.png' width='26' height='26'></img></a>
 <a id='btn_receipt' href='#receipt' title='Go to Receipt (Ctrl+R)'>
 <img src='/icons/Networking.png' width='26' height='26'></img></a>
-<img src='/icons/ResponsiveDesign.png' width='26' height='26'></img>
 </div>
 <div style="float:right" title="ログイン/ログアウト">
 {{loginButtons}}
@@ -100,24 +105,16 @@
 
 <template name='receipt'>
 <input type='hidden' id='receipt_id' value="{{receipt_id}}" /><br />
-<table class="ta1" cellspacing="0">
-<tr>
-<th>date</th>
-<th>category</th>
-<th>shop</th>
-<th>total</th>
-<th>memo</th>
-</tr>
 {{#each receipt}}
-<tr>
-<td rowname={{_id}} columnname="date" >{{formatYYYYMMDD created}}</td>
-<td rowname={{_id}} columnname="category" >{{category}}</td>
-<td rowname={{_id}} columnname="shop" >{{shop}}</td>
-<td rowname={{_id}} columnname="total" >{{total}}</td>
-<td rowname={{_id}} columnname="memo" >{{memo}}</td>
-</tr>
+<ul>
+<li rowname={{_id}} columnname="date" >{{formatYYYYMMDD created}}</li>
+<li rowname={{_id}} columnname="category" >{{category}}</li>
+<li rowname={{_id}} columnname="shop" >{{shop}}</li>
+<li rowname={{_id}} columnname="total" >{{total}}</li>
+<li rowname={{_id}} columnname="memo" >{{memo}}</li>
+<li rowname={{_id}} columnname="receiptImg" ><img src="{{receiptImg}}" /></li>
+</ul>
 {{/each}}
-</table>
 </template>
 
 
@@ -162,6 +159,39 @@
 <th columnname="commodity">commodity</th>
 </tr>
 {{#each summary}}
+<tr>
+<td rowname="{{date}}" columnname="date" >{{date}}</td>
+<td rowname="{{date}}" columnname="eating-in" >{{eating-in}}</td>
+<td rowname="{{date}}" columnname="eating-out" >{{eating-out}}</td>
+<td rowname="{{date}}" columnname="clothes" >{{clothes}}</td>
+<td rowname="{{date}}" columnname="mb" >{{mb}}</td>
+<td rowname="{{date}}" columnname="social" >{{social}}</td>
+<td rowname="{{date}}" columnname="education" >{{education}}</td>
+<td rowname="{{date}}" columnname="leisure" >{{leisure}}</td>
+<td rowname="{{date}}" columnname="tc" >{{tc}}</td>
+<td rowname="{{date}}" columnname="commodity" >{{commodity}}</td>
+</tr>
+{{/each}}
+</table>
+</template>
+
+<template name="monthly">
+<input type='text' size='10' maxlength='10' id='monthly_start' value='2014-01' />
+<input type='text' size='10' maxlength='10' id='monthly_end' value='2014-02' /><br />
+<table class="ta1" cellspacing="0">
+<tr>
+<th columnname="date">date</th>
+<th columnname="eating-in">eating-in</th>
+<th columnname="eating-out">eating-out</th>
+<th columnname="clothes">clothes</th>
+<th columnname="mb">M/B</th>
+<th columnname="social">social</th>
+<th columnname="education">education</th>
+<th columnname="leisure">leisure</th>
+<th columnname="tc">T/C</th>
+<th columnname="commodity">commodity</th>
+</tr>
+{{#each monthly}}
 <tr>
 <td rowname="{{date}}" columnname="date" >{{date}}</td>
 <td rowname="{{date}}" columnname="eating-in" >{{eating-in}}</td>

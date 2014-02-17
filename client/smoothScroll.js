@@ -20,6 +20,9 @@ $(document).ready(function() {
 
 ///// ShortCut
 
+var shortcutMonthly = function() {
+  $('#btn_monthly').trigger('click');
+}
 var shortcutSummary = function() {
   $('#btn_summary').trigger('click');
 }
@@ -30,10 +33,12 @@ var shortcutReceipt = function() {
   $('#btn_receipt').trigger('click');
 }
 
+$(document).on('keydown', null, 'ctrl+m', shortcutMonthly);
+$(document).on('keydown', null, 'ctrl+q', shortcutMonthly);
 $(document).on('keydown', null, 'ctrl+s', shortcutSummary);
-$(document).on('keydown', null, 'ctrl+q', shortcutSummary);
+$(document).on('keydown', null, 'ctrl+w', shortcutSummary);
 $(document).on('keydown', null, 'ctrl+b', shortcutBreakdown);
-$(document).on('keydown', null, 'ctrl+w', shortcutBreakdown);
+$(document).on('keydown', null, 'ctrl+e', shortcutBreakdown);
 $(document).on('keydown', null, 'ctrl+r', shortcutReceipt);
-$(document).on('keydown', null, 'ctrl+e', shortcutReceipt);
+
 
