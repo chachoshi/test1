@@ -35,10 +35,11 @@ Date.prototype.getYYYY_MM_DD = function() {
 }
 
 Date.prototype.setMonthStart = function() {
-  this.setTime(this.getTime() - (this.getTime() % (86400 * 1000)));
+//  this.setTime(this.getTime() - (this.getTime() % (86400 * 1000)));
   console.log('setMonthStart');
   console.log(this.toString());
   this.setDate(1);
+  return this;
 }
 
 Date.prototype.setMonthEnd = function() {
@@ -46,9 +47,13 @@ Date.prototype.setMonthEnd = function() {
 
   this.setMonth(this.getMonth() + 1);
   this.setTime(this.getTime() - (86400 * 1000));
+  return this;
 }
 
-Date.prototype.parseYYYYMMDD = function(datestr) {
+
+/* Static methods */
+
+Date.parseYYYYMMDD = function(datestr) {
   if (datestr === undefined) {
     return datestr;
   }

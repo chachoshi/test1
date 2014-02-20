@@ -5,19 +5,19 @@ Meteor.subscribe('userinfo');
 Template.monthly.events({
   'keyup #monthly_start': function(e, t) {
     var txt = t.find('#monthly_start').value;
-    var d = normalizeDateStr(txt);
+    var d = Date.parseYYYYMMDD(txt).getYYYYMM();
     if (0 < d.length) {
       Session.set('monthly_start', d);
     }
   },
   'keyup #monthly_end': function(e, t) {
     var txt = t.find('#monthly_end').value;
-    var d = normalizeDateStr(txt);
+    var d = Date.parseYYYYMMDD(txt).getYYYYMM();
     if (0 < d.length) {
       Session.set('monthly_end', d);
     }
   },
-  'click': function(e, t) {
+  'click #monthly_table': function(e, t) {
     console.log('click in monthly table');
 
     var cell = e.target;
@@ -29,9 +29,9 @@ Template.monthly.events({
       if (!Session.equals('monthly_row', r)) {
         Session.set('monthly_row', r);
 
-var s = getYYYY_MM_DD(getMonthStart(r));
-        Session.set('summary_start', r);
-var e = getYYYY_MM_DD(getMonthEnd(r));
+        var s = Date.parseYYYYMMDD(r).setMonthStart().getYYYYMMDD();
+        Session.set('summary_start', s);
+        var e = Date.parseYYYYMMDD(r).setMonthEnd().getYYYYMMDD();
         Session.set('summary_end', e);
       }
     }
@@ -55,16 +55,6 @@ var e = getYYYY_MM_DD(getMonthEnd(r));
   }
 });
 
-var normalizeDateStr = function(datestr) {
-  var m = datestr.match(/\d/g);
-  var r = m[0] + m[1] + m[2] + m[3] + '-' + m[4] + m[5] + '-' + m[6] + m[7];
-  d = Date.parse(r);
-  if (!isNaN(d)) {
-    return r;
-  }
-  return '';
-}
-
 Template.monthly.monthly = function() {
 
   var ss = Session.get('monthly_start');
@@ -80,7 +70,7 @@ Template.monthly.monthly = function() {
   es.forEach(function(e) {
     var c = e.category;
     var d = e.created;
-    var dstr = getYYYYMM(d);
+    var dstr = Date.parseYYYYMMDD(d).getYYYYMM();
     var n = new Number(e.total).valueOf();
     if (typeof n != 'number') {
       n = 0;
@@ -112,7 +102,18 @@ Template.monthly.monthly = function() {
   return a;
 }
 
+/*
+ * @arg start - 6 digits string
+ * @arg end - 6 digits string
+ */
 var monthlyCriteria = function(start, end) {
+  if (start != undefined) {
+    start = Date.parseYYYYMMDD(start).setMonthStart().getYYYY_MM_DD();
+  }
+  if (end != undefined) {
+    end = Date.parseYYYYMMDD(end).setMonthEnd().getYYYY_MM_DD();
+  }
+
   if (start === undefined && end === undefined) {
     console.log('criteria undefined undefined');
     return {};
@@ -139,56 +140,5 @@ var monthlyCriteria = function(start, end) {
       }
     };
   }
-}
-
-var getYYYYMM = function(dt) {
-  yy = dt.getYear();
-  mm = dt.getMonth() + 1;
-  if (yy < 2000) {
-    yy += 1900;
-  }
-  if (mm < 10) {
-    mm = "0" + mm;
-  }
-  return yy + mm;
-}
-var getYYYY_MM_DD = function(dt) {
-  yy = dt.getYear();
-  mm = dt.getMonth() + 1;
-  dd = dt.getDate();
-  if (yy < 2000) {
-    yy += 1900;
-  }
-  if (mm < 10) {
-    mm = "0" + mm;
-  }
-  if (dd < 10) {
-    dd = "0" + dd;
-  }
-  return yy + '-' + mm + '-' + dd;
-}
-
-var getMonthStart = function(yyyymm) {
-  return normalizeDateStr(yyyymm + '01');
-}
-var getMonthEnd = function(yyyymm) {
-  var dt = normalizeDateStr(yyyymm + '01');
-  dt.setMonth(dt.getMonth() + 1);
-  dt.setDate(dt.getDate() - 1);
-  return dt;
-}
-
-var normalizeDateStr = function(datestr) {
-  if (datestr === undefined) {
-    return datestr;
-  }
-
-  var m = datestr.match(/\d/g);
-  var r = m[0] + m[1] + m[2] + m[3] + '-' + m[4] + m[5] + '-' + m[6] + m[7];
-  d = Date.parse(r);
-  if (!isNaN(d)) {
-    return r;
-  }
-  return '';
 }
 

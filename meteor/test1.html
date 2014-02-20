@@ -143,9 +143,9 @@
 </template>
 
 <template name='summary'>
-<input type='date' size='10' maxlength='10' id='summary_start' value='2014-01-01' />
-<input type='date' size='10' maxlength='10' id='summary_end' value='2014-02-02' /><br />
-<table class="ta1" cellspacing="0">
+<input type='date' size='10' maxlength='10' id='summary_start' value="{{summary_start}}" />
+<input type='date' size='10' maxlength='10' id='summary_end' value="{{summary_end}}" /><br />
+<table id='summary_table' class="ta1" cellspacing="0">
 <tr>
 <th columnname="date">date</th>
 <th columnname="eating-in">eating-in</th>
@@ -178,7 +178,7 @@
 <template name="monthly">
 <input type='text' size='10' maxlength='10' id='monthly_start' value='2014-01' />
 <input type='text' size='10' maxlength='10' id='monthly_end' value='2014-02' /><br />
-<table class="ta1" cellspacing="0">
+<table id='monthly_table' class="ta1" cellspacing="0">
 <tr>
 <th columnname="date">date</th>
 <th columnname="eating-in">eating-in</th>

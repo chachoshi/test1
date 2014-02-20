@@ -2,6 +2,14 @@
 Meteor.subscribe('entries');
 Meteor.subscribe('userinfo');
 
+Template.summary.summary_start = function() {
+  return Session.get('summary_start');
+}
+
+Template.summary.summary_end = function() {
+  return Session.get('summary_end');
+}
+
 Template.summary.events({
   'keyup #summary_start': function(e, t) {
     var txt = t.find('#summary_start').value;
@@ -17,7 +25,7 @@ Template.summary.events({
       Session.set('summary_end', d);
     }
   },
-  'click': function(e, t) {
+  'click #summary_table': function(e, t) {
     console.log('click in summary table');
 
     var cell = e.target;
@@ -110,6 +118,13 @@ Template.summary.summary = function() {
 }
 
 var summaryCriteria = function(start, end) {
+  if (start != undefined) {
+    start = Date.parseYYYYMMDD(start).getYYYY_MM_DD();
+  }
+  if (end != undefined) {
+    end = Date.parseYYYYMMDD(end).getYYYY_MM_DD();
+  }
+
   if (start === undefined && end === undefined) {
     console.log('criteria undefined undefined');
     return {};
